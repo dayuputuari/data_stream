@@ -16,7 +16,7 @@ from settings import \
     ACCESS_TOKEN_SECRET, \
     SOCKET_HOST, \
     SOCKET_PORT
-from candidate import jokowi_substring
+from candidate import jokowi_substring, prabowo_substring
 
 # Stop program if sigpipe detected
 signal(SIGPIPE, SIG_DFL)
@@ -69,7 +69,7 @@ if __name__ == "__main__":
         print("Received request from:", str(addr))
 
         twitter = Twitter(conn)
-        twitter.filter(jokowi_substring)
+        twitter.filter(jokowi_substring + prabowo_substring)
         twitter.sample()
     except KeyboardInterrupt:
         print()

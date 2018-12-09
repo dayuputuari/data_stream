@@ -6,10 +6,17 @@ import json
 
 from signal import signal, SIGPIPE, SIG_DFL
 
-from settings import CONSUMER_API_KEY, CONSUMER_API_SECRET, ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET, SOCKET_HOST, SOCKET_PORT
-
 from tweepy import Stream, OAuthHandler
 from tweepy.streaming import StreamListener
+
+from settings import \
+    CONSUMER_API_KEY, \
+    CONSUMER_API_SECRET, \
+    ACCESS_TOKEN_KEY, \
+    ACCESS_TOKEN_SECRET, \
+    SOCKET_HOST, \
+    SOCKET_PORT
+from candidate import jokowi_substring
 
 # Stop program if sigpipe detected
 signal(SIGPIPE, SIG_DFL)
@@ -62,7 +69,7 @@ if __name__ == "__main__":
         print("Received request from:", str(addr))
 
         twitter = Twitter(conn)
-        twitter.filter(["jokowi", "prabowo"])
+        twitter.filter(jokowi_substring)
         twitter.sample()
     except KeyboardInterrupt:
         print()
